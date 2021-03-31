@@ -169,11 +169,13 @@ namespace term2d
             Console.SetCursorPosition(0, 0);
             ConsoleColor lastBg = colors[0, 0, 0];
             ConsoleColor lastFg = colors[0, 0, 1];
+            int renderHeight = Math.Min(height, Console.WindowHeight);
+            int renderWidth = Math.Min(width, Console.WindowWidth);
             char[] displayBuffer = new char[(width + 1) * height];
             int bufferPtr = 0;
-            for (int row = 0; row < height && row < Console.WindowHeight; row++)
+            for (int row = 0; row < renderHeight; row++)
             {
-                for (int col = 0; col < width && col < Console.WindowWidth; col++)
+                for (int col = 0; col < renderWidth; col++)
                 {
                     char block = blocks[row, col];
                     ConsoleColor bgColor = colors[row, col, 0];
@@ -189,7 +191,7 @@ namespace term2d
                     }
                     displayBuffer[bufferPtr++] = block;
                 }
-                if (row != height - 1 && (!OperatingSystem.IsWindows() || height < Console.WindowHeight))
+                if (row != renderHeight - 1 && (!OperatingSystem.IsWindows() || height < Console.WindowHeight))
                 {
                     displayBuffer[bufferPtr++] = '\n';
                 }
