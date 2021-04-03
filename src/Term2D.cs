@@ -37,7 +37,6 @@ namespace term2d
             // Begin Game Loop
             GameLoop(game);
             // Stop
-            Console.ResetColor();
             Console.WriteLine("\n[INFO]: Exiting term2D Framework...");
         }
 

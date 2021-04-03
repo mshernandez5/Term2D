@@ -199,6 +199,7 @@ namespace term2d
             Console.BackgroundColor = lastBg;
             Console.ForegroundColor = lastFg;
             Console.Write(displayBuffer, 0, bufferPtr);
+            Console.ResetColor();
         }
 
         /// <summary>
