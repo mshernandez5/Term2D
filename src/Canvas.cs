@@ -191,7 +191,7 @@ namespace term2d
                     }
                     displayBuffer[bufferPtr++] = block;
                 }
-                if (row != renderHeight - 1 && (!OperatingSystem.IsWindows() || height < Console.WindowHeight))
+                if (row != renderHeight - 1)
                 {
                     displayBuffer[bufferPtr++] = '\n';
                 }

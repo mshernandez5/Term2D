@@ -24,15 +24,24 @@ namespace term2d
         public static bool UnlimitedFPS = false;
 
         /// <summary>
-        ///     Sets the target FPS for the game loop.
+        ///     Starts the provided game using the
+        ///     framework.
         /// </summary>
         public static void Start(Game game)
         {
-            // Init
             Console.WriteLine("[INFO]: Starting term2D Framework...");
-            // Initialize
-            Console.Clear();
-            Console.CursorVisible = false;
+            // Configure The Console Based On Operating System
+            InitConfig configurer;
+            if (OperatingSystem.IsWindows())
+            {
+                configurer = new WindowsInitConfig();
+            }
+            else
+            {
+                configurer = new DefaultInitConfig();
+            }
+            configurer.initialize();
+            // Run Game Specific Initialization
             game.Init(ActiveCanvas);
             // Begin Game Loop
             GameLoop(game);
