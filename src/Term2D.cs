@@ -71,7 +71,7 @@ namespace term2d
                 startTimestamp = Stopwatch.GetTimestamp();
                 if (UnlimitedFPS)
                 {
-                    targetTicks = measuredTicks + measuredTicks / 2;
+                    targetTicks = 0;
                 }
                 else
                 {
