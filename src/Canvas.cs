@@ -223,5 +223,36 @@ namespace term2d
             colors[row, col, 0] = DefaultBackgroundColor;
             colors[row, col, 1] = DefaultForegroundColor;
         }
+
+        /// <summary>
+        ///     Draws a string horizontally starting
+        ///     from the specified row and column.
+        /// </summary>
+        public void DrawText(int row, int startCol, string text, ConsoleColor fgColor, ConsoleColor bgColor)
+        {
+            for (int offset = 0; offset < text.Length; offset++)
+            {
+                int col = startCol + offset;
+                blocks[row, col] = text[offset];
+                colors[row, col, 0] = bgColor;
+                colors[row, col, 1] = fgColor;
+            }
+        }
+
+        /// <summary>
+        ///     Draws a string horizontally starting
+        ///     from the specified row and column
+        ///     using default colors.
+        /// </summary>
+        public void DrawText(int row, int startCol, string text)
+        {
+            for (int offset = 0; offset < text.Length; offset++)
+            {
+                int col = startCol + offset;
+                blocks[row, col] = text[offset];
+                colors[row, col, 0] = DefaultBackgroundColor;
+                colors[row, col, 1] = DefaultForegroundColor;
+            }
+        }
     }
 }
