@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading;
 
 namespace term2d
@@ -10,9 +11,8 @@ namespace term2d
     /// </summary>
     class ConsoleInputThread
     {
-        // For Keeping Track Of Input, Read Only From Outside Classes
-        private ConsoleKey lastInput;
-        private bool hasUnreadInput;
+        // Event Receivers
+        private List<KeyInputListener> listeners;
 
         // For Managing Thread
         private Thread inputThread;
@@ -20,10 +20,23 @@ namespace term2d
 
         public ConsoleInputThread()
         {
-            lastInput = ConsoleKey.F;
-            hasUnreadInput = false;
+            listeners = new List<KeyInputListener>();
             inputThread = new Thread(inputLoop);
             tokenSource = new CancellationTokenSource();
+        }
+
+        /// <summary>
+        ///     Registers an event listener with the input thread,
+        ///     allowing it to receive details whenever an event
+        ///     occurs.
+        /// </summary>
+        /// <param name="listener">
+        ///     An object implementing KeyInputListener to
+        ///     receive console key events.
+        /// </param>
+        public void AddEventListener(KeyInputListener listener)
+        {
+            listeners.Add(listener);
         }
 
         /// <summary>
@@ -47,31 +60,18 @@ namespace term2d
             tokenSource.Cancel();
         }
 
-        /// <summary>
-        ///     Returns the last ConsoleKey read from the user,
-        ///     no guarantees the input is new.
-        /// </summary>
-        public ConsoleKey ReadLast()
-        {
-            hasUnreadInput = false;
-            return lastInput;
-        }
-
-        /// <summary>
-        ///     Returns true if an unread input is available,
-        ///     otherwise false.
-        /// </summary>
-        public bool HasUnreadInput()
-        {
-            return hasUnreadInput;
-        }
-
         private void inputLoop()
         {
+            ConsoleKeyInfo lastEvent;
             while (!tokenSource.Token.IsCancellationRequested)
             {
-                lastInput = Console.ReadKey(true).Key;
-                hasUnreadInput = true;
+                // Wait For New Console Key Event
+                lastEvent = Console.ReadKey(true);
+                // Call Registered Event Handlers
+                foreach (KeyInputListener listener in listeners)
+                {
+                    listener.OnKeyEvent(lastEvent);
+                }
             }
         }
     }

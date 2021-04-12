@@ -1,3 +1,5 @@
+using System;
+
 namespace term2d
 {
     /// <summary>
@@ -6,7 +8,7 @@ namespace term2d
     ///     framework to communicate with your game
     ///     in a standardized way.
     /// </summary>
-    public abstract class Game
+    public abstract class Game : KeyInputListener
     {
         /// <summary>
         ///     The Init() method will be called once
@@ -17,6 +19,7 @@ namespace term2d
         ///     Canvas object that will be rendered by default.
         /// </param>
         public abstract void Init(Canvas canvas);
+
         /// <summary>
         ///     The Update() method will be called continuously
         ///     by the framework as part of the core game loop.
@@ -31,5 +34,16 @@ namespace term2d
         ///     true to continue running, false to end the game loop.
         /// </returns>
         public abstract bool Update(UpdateInfo updateInfo);
+
+        /// <summary>
+        ///     The OnKeyEvent() method will be called
+        ///     asynchrounously from the game loop any time
+        ///     the user enters a key into the console.
+        /// </summary>
+        /// <param name="keyInfo">
+        ///     A ConsoleKeyInfo object detailing the
+        ///     console key event.
+        /// </param>
+        public abstract void OnKeyEvent(ConsoleKeyInfo keyInfo);
     }
 }

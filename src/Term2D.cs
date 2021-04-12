@@ -59,6 +59,7 @@ namespace term2d
 
             // Start Additional Threads
             inputThread.Start();
+            inputThread.AddEventListener(game);
 
             // Remember Window Size To Detect Changes
             int lastWindowWidth = Console.WindowWidth;
@@ -87,11 +88,8 @@ namespace term2d
                 }
                 // Update Information For Game To Read
                 updateInfo.ActiveCanvas = ActiveCanvas;
-                updateInfo.HasUnreadInput = inputThread.HasUnreadInput();
-                updateInfo.LastInput = inputThread.ReadLast();
                 updateInfo.DeltaTime = measuredTicks / (double) Stopwatch.Frequency;
                 // Update Game
-                bool newInput = inputThread.HasUnreadInput();
                 runLoop = game.Update(updateInfo);
                 // Render
                 if (Console.WindowWidth != lastWindowWidth || Console.WindowHeight != lastWindowHeight)
