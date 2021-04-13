@@ -21,6 +21,7 @@ namespace term2d
         ///     or initialized.
         /// </summary>
         public char DefaultBlock {set; get;}
+        
         /// <summary>
         ///     The default foreground color to use for
         ///     new blocks with unspecified colors or
@@ -28,6 +29,7 @@ namespace term2d
         ///     or initialized.
         /// </summary>
         public ConsoleColor DefaultForegroundColor {set; get;}
+
         /// <summary>
         ///     The default background color to use for
         ///     new blocks with unspecified colors or
@@ -36,11 +38,21 @@ namespace term2d
         /// </summary>
         public ConsoleColor DefaultBackgroundColor {set; get;}
 
+        /// <summary>
+        ///     The width of the canvas, independent
+        ///     of console window size.
+        /// </summary>
+        public int Width {get; private set;}
+
+        /// <summary>
+        ///     The height of the canvas, independent
+        ///     of console window size.
+        /// </summary>
+        public int Height {get; private set;}
+
         // Internal Canvas Representation
         private char[,] blocks;
         private ConsoleColor[,,] colors;
-        private int width;
-        private int height;
 
         /// <summary>
         ///     Initialize a Canvas with default values.
@@ -90,8 +102,8 @@ namespace term2d
         /// </param>
         private void Initialize(int width, int height)
         {
-            this.width = width;
-            this.height = height;
+            this.Width = width;
+            this.Height = height;
             blocks = new char[height, width];
             colors = new ConsoleColor[height, width, 2];
             Clear(DefaultBlock, DefaultForegroundColor, DefaultBackgroundColor);
@@ -111,9 +123,9 @@ namespace term2d
         /// </param>
         public void Clear(char block, ConsoleColor fgColor, ConsoleColor bgColor)
         {
-            for (int row = 0; row < height; row++)
+            for (int row = 0; row < Height; row++)
             {
-                for (int col = 0; col < width; col++)
+                for (int col = 0; col < Width; col++)
                 {
                     blocks[row, col] = block;
                     colors[row, col, 0] = bgColor;
@@ -131,30 +143,6 @@ namespace term2d
         }
 
         /// <summary>
-        ///     Get the width of the canvas, independent
-        ///     of console window size.
-        /// </summary>
-        /// <returns>
-        ///     The width of the canavs.
-        /// </returns>
-        public int GetWidth()
-        {
-            return width;
-        }
-
-        /// <summary>
-        ///     Get the height of the canvas, independent
-        ///     of console window size.
-        /// </summary>
-        /// <returns>
-        ///     The height of the canavs.
-        /// </returns>
-        public int GetHeight()
-        {
-            return height;
-        }
-
-        /// <summary>
         ///     <para>
         ///         Renders the visible portion of the
         ///         canvas in the console.
@@ -169,9 +157,9 @@ namespace term2d
             Console.SetCursorPosition(0, 0);
             ConsoleColor lastBg = colors[0, 0, 0];
             ConsoleColor lastFg = colors[0, 0, 1];
-            int renderHeight = Math.Min(height, Console.WindowHeight);
-            int renderWidth = Math.Min(width, Console.WindowWidth);
-            char[] displayBuffer = new char[(width + 1) * height];
+            int renderHeight = Math.Min(Height, Console.WindowHeight);
+            int renderWidth = Math.Min(Width, Console.WindowWidth);
+            char[] displayBuffer = new char[(Width + 1) * Height];
             int bufferPtr = 0;
             for (int row = 0; row < renderHeight; row++)
             {
