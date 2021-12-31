@@ -3,16 +3,14 @@ using System;
 namespace Term2D
 {
     /// <summary>
-    ///     Games using the term2D framework should
-    ///     extend this abstract class, allowing the
-    ///     framework to communicate with your game
-    ///     in a standardized way.
+    ///     Applications using the term2D framework should
+    ///     extend this abstract class.
     /// </summary>
-    public abstract class Game : KeyInputListener
+    public abstract class Term2DApplication : KeyInputListener
     {
         /// <summary>
-        ///     The Init() method will be called once
-        ///     upon framework initialization.
+        ///     The Init() method will be automatically
+        ///     called once upon framework initialization.
         /// </summary>
         /// <param name="canvas">
         ///     A reference to the automatically created
@@ -22,22 +20,19 @@ namespace Term2D
 
         /// <summary>
         ///     The Update() method will be called continuously
-        ///     by the framework as part of the core game loop.
+        ///     by the framework as part of the render loop.
         /// </summary>
         /// <param name="updateInfo">
-        ///     A set of references and information received
-        ///     by the framework including a reference to the
-        ///     active Canvas, keyboard input information,
-        ///     and time since the last update.
+        ///     A structure containing updated state information.
         /// </param>
         /// <returns>
-        ///     true to continue running, false to end the game loop.
+        ///     True to continue running, false to end the loop.
         /// </returns>
         public abstract bool Update(UpdateInfo updateInfo);
 
         /// <summary>
         ///     The OnKeyEvent() method will be called
-        ///     asynchrounously from the game loop any time
+        ///     asynchrounously from the render loop any time
         ///     the user enters a key into the console.
         /// </summary>
         /// <param name="keyInfo">

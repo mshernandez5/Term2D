@@ -50,14 +50,14 @@ namespace Term2D
             if (!GetConsoleMode(consoleHandle, out mode))
             {
                 Console.Out.WriteLine("ERROR GETTING CONSOLE MODE");
-                Console.Out.WriteLine("The game may not render correctly on cmd.exe, press any key to continue...");
+                Console.Out.WriteLine("This application may not render correctly on cmd.exe, press any key to continue...");
                 Console.ReadKey(true);
             }
             mode &= ~ENABLE_WRAP_AT_EOL_OUTPUT;
             if (!SetConsoleMode(consoleHandle, mode))
             {
                 Console.Out.WriteLine("ERROR SETTING CONSOLE MODE");
-                Console.Out.WriteLine("The game may not render correctly on cmd.exe, press any key to continue...");
+                Console.Out.WriteLine("This application may not render correctly on cmd.exe, press any key to continue...");
                 Console.ReadKey(true);
             }
             Console.CursorVisible = false;

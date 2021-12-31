@@ -5,7 +5,7 @@ namespace Term2D
 {
     /// <summary>
     ///     The core of the framework, initializes
-    ///     the game and controls the game loop.
+    ///     the application and controls the render loop.
     /// </summary>
     public class Term2D
     {
@@ -14,7 +14,7 @@ namespace Term2D
         /// </summary>
         public static Canvas ActiveCanvas = new Canvas();
         /// <summary>
-        ///     The maximum FPS the game will attempt to reach.
+        ///     The maximum FPS the render loop will attempt to reach.
         /// </summary>
         public static int TargetFPS = 60;
         /// <summary>
@@ -24,10 +24,10 @@ namespace Term2D
         public static bool UnlimitedFPS = false;
 
         /// <summary>
-        ///     Starts the provided game using the
+        ///     Starts the provided application using the
         ///     framework.
         /// </summary>
-        public static void Start(Game game)
+        public static void Start(Term2DApplication app)
         {
             // Configure The Console Based On Operating System
             InitConfig configurer;
@@ -40,29 +40,29 @@ namespace Term2D
                 configurer = new DefaultInitConfig();
             }
             configurer.initialize();
-            // Run Game Specific Initialization
-            game.Init(ActiveCanvas);
-            // Begin Game Loop
-            GameLoop(game);
+            // Initialize Application
+            app.Init(ActiveCanvas);
+            // Begin Render Loop
+            RenderLoop(app);
         }
 
         /// <summary>
-        ///     The primary game loop.
+        ///     The primary render loop.
         /// </summary>
-        private static void GameLoop(Game game)
+        private static void RenderLoop(Term2DApplication app)
         {
             // Prepare Additional Threads
             ConsoleInputThread inputThread = new ConsoleInputThread();
 
             // Start Additional Threads
             inputThread.Start();
-            inputThread.AddEventListener(game);
+            inputThread.AddEventListener(app);
 
             // Remember Window Size To Detect Changes
             int lastWindowWidth = Console.WindowWidth;
             int lastWindowHeight = Console.WindowHeight;
 
-            // Game Loop Variables
+            // Render Loop Variables
             long startTimestamp;
             long targetTicks;
             long measuredTicks = 0L;
@@ -83,11 +83,11 @@ namespace Term2D
                 {
                     targetTicks = Stopwatch.Frequency / TargetFPS;
                 }
-                // Update Information For Game To Read
+                // Update State Information
                 updateInfo.ActiveCanvas = ActiveCanvas;
                 updateInfo.DeltaTime = measuredTicks / (double) Stopwatch.Frequency;
-                // Update Game
-                runLoop = game.Update(updateInfo);
+                // Run Application Update Loop
+                runLoop = app.Update(updateInfo);
                 // Render
                 if (Console.WindowWidth != lastWindowWidth || Console.WindowHeight != lastWindowHeight)
                 {

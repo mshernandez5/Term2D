@@ -11,7 +11,7 @@ namespace Term2D
     {
         /// <summary>
         ///     The OnKeyEvent() method will be called
-        ///     asynchrounously from the game loop any time
+        ///     asynchrounously from the render loop any time
         ///     the user enters a key into the console.
         /// </summary>
         /// <param name="keyInfo">

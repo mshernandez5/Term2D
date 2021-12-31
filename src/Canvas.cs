@@ -149,7 +149,7 @@ namespace Term2D
         ///     </para>
         ///     <para>
         ///         Not recommended for manual use, let the
-        ///         framework game loop render Canvas objects.
+        ///         framework loop render Canvas objects.
         ///     </para>
         /// </summary>
         public void Render()

@@ -2,7 +2,7 @@ namespace Term2D
 {
     /// <summary>
     ///     A struct to pass framework information
-    ///     to the game on each update.
+    ///     to the application on each update.
     /// </summary>
     public struct UpdateInfo
     {
