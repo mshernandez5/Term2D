@@ -10,10 +10,12 @@
     <!-- Nuget -->
     <PackageId>MHernandez.Term2D</PackageId>
     <Authors>Markus Hernandez</Authors>
+    <Title>Term2D</Title>
     <Description>A light framework for rendering 2D text-based graphics.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIcon>icon.png</PackageIcon>
     <PackageTags>Terminal, CLI, 2D, Text, ASCII, Render, Framework</PackageTags>
+    <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/mshernandez5/Term2D</RepositoryUrl>
   </PropertyGroup>
 
