@@ -1,4 +1,4 @@
-namespace term2d
+namespace Term2D
 {
     /// <summary>
     ///     A struct to pass framework information

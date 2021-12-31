@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 
-namespace term2d
+namespace Term2D
 {
     /// <summary>
     ///     The core of the framework, initializes

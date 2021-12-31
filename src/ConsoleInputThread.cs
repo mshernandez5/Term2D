@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 
-namespace term2d
+namespace Term2D
 {
     /// <summary>
     ///     Silently reads keys entered into the console to take user

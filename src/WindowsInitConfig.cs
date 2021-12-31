@@ -1,7 +1,7 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace term2d
+namespace Term2D
 {
     /// <summary>
     ///     A console configuration procedure specifically

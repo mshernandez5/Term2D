@@ -1,6 +1,6 @@
 using System;
 
-namespace term2d
+namespace Term2D
 {
     /// <summary>
     ///     An interface allowing classes to receive
