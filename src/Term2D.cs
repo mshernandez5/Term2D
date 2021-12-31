@@ -7,7 +7,7 @@ namespace Term2D
     ///     The core of the framework, initializes
     ///     the application and controls the render loop.
     /// </summary>
-    public class Term2D
+    public class Term2DInitializer
     {
         /// <summary>
         ///     The active canvas to render on screen.
