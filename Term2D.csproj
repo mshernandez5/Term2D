@@ -11,6 +11,7 @@
     <PackageId>MHernandez.Term2D</PackageId>
     <Authors>Markus Hernandez</Authors>
     <Description>Lightweight framework to render 2D console interfaces.</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageTags>Terminal, CLI, 2D, Render, Framework</PackageTags>
     <RepositoryUrl>https://github.com/mshernandez5/Term2D</RepositoryUrl>
   </PropertyGroup>
