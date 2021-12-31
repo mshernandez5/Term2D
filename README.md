@@ -1,2 +1,2 @@
-# term2d
-A framework for rendering 2D text-based console games.
+# Term2D
+A light framework for rendering 2D text-based graphics.
