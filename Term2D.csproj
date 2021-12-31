@@ -4,6 +4,7 @@
     <!-- General -->
     <OutputType>Library</OutputType>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <TargetFramework>net6.0</TargetFramework>
     <Version>0.5.0</Version>
     <!-- Nuget -->
