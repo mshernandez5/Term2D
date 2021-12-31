@@ -29,7 +29,6 @@ namespace Term2D
         /// </summary>
         public static void Start(Game game)
         {
-            Console.WriteLine("[INFO]: Starting term2D Framework...");
             // Configure The Console Based On Operating System
             InitConfig configurer;
             if (OperatingSystem.IsWindows())
@@ -45,8 +44,6 @@ namespace Term2D
             game.Init(ActiveCanvas);
             // Begin Game Loop
             GameLoop(game);
-            // Stop
-            Console.WriteLine("\n[INFO]: Exiting term2D Framework...");
         }
 
         /// <summary>
