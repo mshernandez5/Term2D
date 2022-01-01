@@ -56,7 +56,7 @@ namespace Term2D
 
             // Start Additional Threads
             inputThread.Start();
-            inputThread.AddEventListener(app);
+            inputThread.RaiseConsoleKeyEvent += app.OnKeyEvent;
 
             // Remember Window Size To Detect Changes
             int lastWindowWidth = Console.WindowWidth;

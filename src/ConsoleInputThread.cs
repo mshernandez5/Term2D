@@ -11,56 +11,26 @@ namespace Term2D
     /// </summary>
     class ConsoleInputThread
     {
-        // Event Receivers
-        private ConcurrentDictionary<KeyInputListener, bool> listeners;
+        /// <summary>
+        ///     An event dispatched whenever a new console
+        ///     key input is read from the console.
+        /// </summary>
+        public event EventHandler<ConsoleKeyEventArgs> RaiseConsoleKeyEvent;
 
         // For Managing Thread
         private Thread inputThread;
         private CancellationTokenSource tokenSource;
 
-        public ConsoleInputThread()
+        internal ConsoleInputThread()
         {
-            listeners = new ConcurrentDictionary<KeyInputListener, bool>();
             inputThread = new Thread(inputLoop);
             tokenSource = new CancellationTokenSource();
         }
 
         /// <summary>
-        ///     Registers an event listener with the input thread,
-        ///     allowing it to receive details whenever an event
-        ///     occurs.
-        ///     <br/>
-        ///     This method is thread-safe.
-        /// </summary>
-        /// <param name="listener">
-        ///     An object implementing KeyInputListener to
-        ///     receive console key events.
-        /// </param>
-        public void AddEventListener(KeyInputListener listener)
-        {
-            listeners.TryAdd(listener, true);
-        }
-
-        /// <summary>
-        ///     Stop sending key events to an event listener.
-        ///     <br/>
-        ///     This method is thread-safe.
-        /// </summary>
-        /// <param name="listener">
-        ///     The listener to stop sending events to.
-        /// </param>
-        /// <returns>
-        ///     True if the listener was found and unregistered from events.
-        /// </returns>
-        public bool RemoveEventListener(KeyInputListener listener)
-        {
-            return listeners.TryRemove(listener, out _);
-        }
-
-        /// <summary>
         ///     Start taking user input.
         /// </summary>
-        public void Start()
+        internal void Start()
         {
             if (!inputThread.IsAlive && tokenSource.IsCancellationRequested)
             {
@@ -73,22 +43,20 @@ namespace Term2D
         /// <summary>
         ///     Stop taking user input.
         /// </summary>
-        public void Stop()
+        internal void Stop()
         {
             tokenSource.Cancel();
         }
 
         private void inputLoop()
         {
-            ConsoleKeyInfo lastEvent;
             while (!tokenSource.Token.IsCancellationRequested)
             {
-                // Wait For New Console Key Event
-                lastEvent = Console.ReadKey(true);
-                // Call Registered Event Handlers
-                foreach (var entry in listeners)
+                ConsoleKeyInfo e = Console.ReadKey(true);
+                EventHandler<ConsoleKeyEventArgs> raiseEvent = RaiseConsoleKeyEvent;
+                if (raiseEvent != null)
                 {
-                    entry.Key.OnKeyEvent(lastEvent);
+                    raiseEvent(this, new ConsoleKeyEventArgs(e));
                 }
             }
         }

@@ -14,10 +14,13 @@ namespace Term2D
         ///     asynchrounously from the render loop any time
         ///     the user enters a key into the console.
         /// </summary>
-        /// <param name="keyInfo">
+        /// <param name="sender">
+        ///     The object which dispatched the event.
+        /// </param>
+        /// <param name="e">
         ///     A ConsoleKeyInfo object detailing the
         ///     console key event.
         /// </param>
-        void OnKeyEvent(ConsoleKeyInfo keyInfo);
+        void OnKeyEvent(object sender, ConsoleKeyEventArgs e);
     }
 }
