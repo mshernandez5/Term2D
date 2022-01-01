@@ -7,7 +7,7 @@ namespace Term2D
     ///     console key events detected by the console
     ///     input thread.
     /// </summary>
-    interface KeyInputListener
+    public interface KeyInputListener
     {
         /// <summary>
         ///     The OnKeyEvent() method will be called

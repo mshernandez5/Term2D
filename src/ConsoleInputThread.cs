@@ -1,5 +1,5 @@
 using System;
-using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.Threading;
 
 namespace Term2D
@@ -12,7 +12,7 @@ namespace Term2D
     class ConsoleInputThread
     {
         // Event Receivers
-        private List<KeyInputListener> listeners;
+        private ConcurrentDictionary<KeyInputListener, bool> listeners;
 
         // For Managing Thread
         private Thread inputThread;
@@ -20,7 +20,7 @@ namespace Term2D
 
         public ConsoleInputThread()
         {
-            listeners = new List<KeyInputListener>();
+            listeners = new ConcurrentDictionary<KeyInputListener, bool>();
             inputThread = new Thread(inputLoop);
             tokenSource = new CancellationTokenSource();
         }
@@ -29,6 +29,8 @@ namespace Term2D
         ///     Registers an event listener with the input thread,
         ///     allowing it to receive details whenever an event
         ///     occurs.
+        ///     <br/>
+        ///     This method is thread-safe.
         /// </summary>
         /// <param name="listener">
         ///     An object implementing KeyInputListener to
@@ -36,7 +38,23 @@ namespace Term2D
         /// </param>
         public void AddEventListener(KeyInputListener listener)
         {
-            listeners.Add(listener);
+            listeners.TryAdd(listener, true);
+        }
+
+        /// <summary>
+        ///     Stop sending key events to an event listener.
+        ///     <br/>
+        ///     This method is thread-safe.
+        /// </summary>
+        /// <param name="listener">
+        ///     The listener to stop sending events to.
+        /// </param>
+        /// <returns>
+        ///     True if the listener was found and unregistered from events.
+        /// </returns>
+        public bool RemoveEventListener(KeyInputListener listener)
+        {
+            return listeners.TryRemove(listener, out _);
         }
 
         /// <summary>
@@ -68,9 +86,9 @@ namespace Term2D
                 // Wait For New Console Key Event
                 lastEvent = Console.ReadKey(true);
                 // Call Registered Event Handlers
-                foreach (KeyInputListener listener in listeners)
+                foreach (var entry in listeners)
                 {
-                    listener.OnKeyEvent(lastEvent);
+                    entry.Key.OnKeyEvent(lastEvent);
                 }
             }
         }
